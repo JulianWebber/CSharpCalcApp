@@ -11,6 +11,10 @@ author = "agent"
 task = "workflow.run"
 args = "Run Calculator"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Web Calculator"
+
 [[workflows.workflow]]
 name = "Run Calculator"
 author = "agent"
@@ -22,5 +26,21 @@ agentRequireRestartOnSave = false
 task = "shell.exec"
 args = "cd CSharpCalculatorApp && dotnet run"
 
+[[workflows.workflow]]
+name = "Web Calculator"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd CalculatorWebApp && dotnet run"
+waitForPort = 5000
+
 [deployment]
 run = ["sh", "-c", "cd CSharpCalculatorApp && dotnet run"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

@@ -1,0 +1,161 @@
+@{
+    ViewData["Title"] = "Calculator";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Web Calculator</h1>
+    <div class="calculator">
+        <input type="text" id="display" readonly>
+        <div class="buttons">
+            <button onclick="appendToDisplay('7')">7</button>
+            <button onclick="appendToDisplay('8')">8</button>
+            <button onclick="appendToDisplay('9')">9</button>
+            <button onclick="setOperation('+')">+</button>
+            <button onclick="appendToDisplay('4')">4</button>
+            <button onclick="appendToDisplay('5')">5</button>
+            <button onclick="appendToDisplay('6')">6</button>
+            <button onclick="setOperation('-')">-</button>
+            <button onclick="appendToDisplay('1')">1</button>
+            <button onclick="appendToDisplay('2')">2</button>
+            <button onclick="appendToDisplay('3')">3</button>
+            <button onclick="setOperation('*')">*</button>
+            <button onclick="appendToDisplay('0')">0</button>
+            <button onclick="appendToDisplay('.')">.</button>
+            <button onclick="calculate()">=</button>
+            <button onclick="setOperation('/')">/</button>
+            <button onclick="setOperation('sqrt')">√</button>
+            <button onclick="setOperation('^')">^</button>
+            <button onclick="memoryAdd()">M+</button>
+            <button onclick="memoryRecall()">MR</button>
+            <button onclick="memoryClear()">MC</button>
+            <button onclick="clearDisplay()">C</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        let currentNumber = '';
+        let previousNumber = '';
+        let operation = '';
+
+        function appendToDisplay(value) {
+            currentNumber += value;
+            document.getElementById('display').value = currentNumber;
+        }
+
+        function setOperation(op) {
+            if (currentNumber !== '') {
+                previousNumber = currentNumber;
+                currentNumber = '';
+                operation = op;
+                document.getElementById('display').value = '';
+            }
+        }
+
+        function calculate() {
+            if (previousNumber !== '' && currentNumber !== '') {
+                $.ajax({
+                    url: '/Calculator/Calculate',
+                    type: 'POST',
+                    data: {
+                        num1: parseFloat(previousNumber),
+                        num2: parseFloat(currentNumber),
+                        operation: operation
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            document.getElementById('display').value = response.result;
+                            currentNumber = response.result.toString();
+                            previousNumber = '';
+                            operation = '';
+                        } else {
+                            document.getElementById('display').value = 'Error: ' + response.error;
+                        }
+                    },
+                    error: function () {
+                        document.getElementById('display').value = 'Error occurred';
+                    }
+                });
+            }
+        }
+
+        function clearDisplay() {
+            currentNumber = '';
+            previousNumber = '';
+            operation = '';
+            document.getElementById('display').value = '';
+        }
+
+        function memoryAdd() {
+            if (currentNumber !== '') {
+                $.ajax({
+                    url: '/Calculator/Calculate',
+                    type: 'POST',
+                    data: {
+                        num1: parseFloat(currentNumber),
+                        num2: 0,
+                        operation: 'M+'
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            document.getElementById('display').value = response.result;
+                            currentNumber = response.result.toString();
+                        } else {
+                            document.getElementById('display').value = 'Error: ' + response.error;
+                        }
+                    },
+                    error: function () {
+                        document.getElementById('display').value = 'Error occurred';
+                    }
+                });
+            }
+        }
+
+        function memoryRecall() {
+            $.ajax({
+                url: '/Calculator/Calculate',
+                type: 'POST',
+                data: {
+                    num1: 0,
+                    num2: 0,
+                    operation: 'MR'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById('display').value = response.result;
+                        currentNumber = response.result.toString();
+                    } else {
+                        document.getElementById('display').value = 'Error: ' + response.error;
+                    }
+                },
+                error: function () {
+                    document.getElementById('display').value = 'Error occurred';
+                }
+            });
+        }
+
+        function memoryClear() {
+            $.ajax({
+                url: '/Calculator/Calculate',
+                type: 'POST',
+                data: {
+                    num1: 0,
+                    num2: 0,
+                    operation: 'MC'
+                },
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById('display').value = '';
+                        currentNumber = '';
+                    } else {
+                        document.getElementById('display').value = 'Error: ' + response.error;
+                    }
+                },
+                error: function () {
+                    document.getElementById('display').value = 'Error occurred';
+                }
+            });
+        }
+    </script>
+}
