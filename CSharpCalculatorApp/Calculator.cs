@@ -2,6 +2,8 @@ using System;
 
 public class Calculator
 {
+    private double memoryValue = 0;
+
     public double Calculate(double num1, double num2, string operation)
     {
         switch (operation)
@@ -18,8 +20,15 @@ public class Calculator
                 return SquareRoot(num1);
             case "^":
                 return Power(num1, num2);
+            case "M+":
+                return MemoryAdd(num1);
+            case "MR":
+                return MemoryRecall();
+            case "MC":
+                MemoryClear();
+                return 0;
             default:
-                throw new ArgumentException("Invalid operation. Please use +, -, *, /, sqrt, or ^.");
+                throw new ArgumentException("Invalid operation. Please use +, -, *, /, sqrt, ^, M+, MR, or MC.");
         }
     }
 
@@ -59,5 +68,21 @@ public class Calculator
     private double Power(double baseNum, double exponent)
     {
         return Math.Pow(baseNum, exponent);
+    }
+
+    private double MemoryAdd(double num)
+    {
+        memoryValue += num;
+        return memoryValue;
+    }
+
+    private double MemoryRecall()
+    {
+        return memoryValue;
+    }
+
+    private void MemoryClear()
+    {
+        memoryValue = 0;
     }
 }

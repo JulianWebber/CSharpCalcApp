@@ -7,13 +7,13 @@ class Program
         Calculator calculator = new Calculator();
         bool continueCalculating = true;
 
-        Console.WriteLine("Welcome to the Advanced Calculator!");
+        Console.WriteLine("Welcome to the Advanced Calculator with Memory Functions!");
 
         while (continueCalculating)
         {
             try
             {
-                Console.WriteLine("\nPlease enter the operation (+, -, *, /, sqrt, ^):");
+                Console.WriteLine("\nPlease enter the operation (+, -, *, /, sqrt, ^, M+, MR, MC):");
                 string? operation = Console.ReadLine();
 
                 if (string.IsNullOrWhiteSpace(operation))
@@ -21,9 +21,9 @@ class Program
                     throw new ArgumentException("Operation cannot be empty.");
                 }
 
-                double num1, num2 = 0;
+                double num1 = 0, num2 = 0;
 
-                if (operation.ToLower() == "sqrt")
+                if (operation.ToUpper() != "MR" && operation.ToUpper() != "MC")
                 {
                     Console.WriteLine("Please enter the number:");
                     if (!double.TryParse(Console.ReadLine(), out num1))
@@ -31,21 +31,13 @@ class Program
                         throw new FormatException("Invalid number format.");
                     }
                 }
-                else
+
+                if (operation != "sqrt" && operation.ToUpper() != "M+" && operation.ToUpper() != "MR" && operation.ToUpper() != "MC")
                 {
-                    Console.WriteLine("Please enter the first number:");
-                    if (!double.TryParse(Console.ReadLine(), out num1))
+                    Console.WriteLine("Please enter the second number:");
+                    if (!double.TryParse(Console.ReadLine(), out num2))
                     {
                         throw new FormatException("Invalid number format.");
-                    }
-
-                    if (operation != "sqrt")
-                    {
-                        Console.WriteLine("Please enter the second number:");
-                        if (!double.TryParse(Console.ReadLine(), out num2))
-                        {
-                            throw new FormatException("Invalid number format.");
-                        }
                     }
                 }
 
@@ -82,9 +74,14 @@ class Program
         RunTest(calculator, 20, 5, "/", 4);
         RunTest(calculator, 16, 0, "sqrt", 4);
         RunTest(calculator, 2, 3, "^", 8);
+        RunTest(calculator, 10, 0, "M+", 10);
+        RunTest(calculator, 0, 0, "MR", 10);
+        RunTest(calculator, 5, 0, "M+", 15);
+        RunTest(calculator, 0, 0, "MC", 0);
+        RunTest(calculator, 0, 0, "MR", 0);
 
         Console.WriteLine("Automated tests completed.");
-        Console.WriteLine("Thank you for using the Advanced Calculator. Goodbye!");
+        Console.WriteLine("Thank you for using the Advanced Calculator with Memory Functions. Goodbye!");
     }
 
     static void RunTest(Calculator calculator, double num1, double num2, string operation, double expectedResult)
@@ -93,7 +90,7 @@ class Program
         {
             double result = calculator.Calculate(num1, num2, operation);
             bool passed = Math.Abs(result - expectedResult) < 0.0001;
-            Console.WriteLine($"Test: {num1} {operation} {(operation == "sqrt" ? "" : num2.ToString())} = {result} | Expected: {expectedResult} | {(passed ? "PASSED" : "FAILED")}");
+            Console.WriteLine($"Test: {num1} {operation} {(operation == "sqrt" || operation == "M+" || operation == "MR" || operation == "MC" ? "" : num2.ToString())} = {result} | Expected: {expectedResult} | {(passed ? "PASSED" : "FAILED")}");
         }
         catch (Exception ex)
         {
