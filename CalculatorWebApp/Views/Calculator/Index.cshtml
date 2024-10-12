@@ -2,6 +2,52 @@
     ViewData["Title"] = "Calculator";
 }
 
+<style>
+    .calculator {
+        width: 300px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .calculator input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 5px;
+        font-size: 18px;
+    }
+    .calculator .buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 5px;
+    }
+    .calculator button {
+        padding: 10px;
+        font-size: 16px;
+    }
+    .history-buttons {
+        margin-top: 10px;
+    }
+    #history {
+        margin-top: 20px;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        max-height: 200px;
+        overflow-y: auto;
+    }
+    #history h3 {
+        margin-top: 0;
+    }
+    #history ul {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    #history li {
+        margin-bottom: 5px;
+    }
+</style>
+
 <div class="text-center">
     <h1 class="display-4">Web Calculator</h1>
     <div class="calculator">
