@@ -26,5 +26,18 @@ namespace CalculatorWebApp.Controllers
                 return Json(new { success = false, error = ex.Message });
             }
         }
+
+        [HttpGet]
+        public IActionResult GetHistory()
+        {
+            return Json(_calculator.GetHistory());
+        }
+
+        [HttpPost]
+        public IActionResult ClearHistory()
+        {
+            _calculator.ClearHistory();
+            return Json(new { success = true });
+        }
     }
 }

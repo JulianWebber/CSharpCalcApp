@@ -30,7 +30,12 @@
             <button onclick="memoryClear()">MC</button>
             <button onclick="clearDisplay()">C</button>
         </div>
+        <div class="history-buttons">
+            <button onclick="showHistory()">Show History</button>
+            <button onclick="clearHistory()">Clear History</button>
+        </div>
     </div>
+    <div id="history" class="history"></div>
 </div>
 
 @section Scripts {
@@ -154,6 +159,48 @@
                 },
                 error: function () {
                     document.getElementById('display').value = 'Error occurred';
+                }
+            });
+        }
+
+        function showHistory() {
+            $.ajax({
+                url: '/Calculator/GetHistory',
+                type: 'GET',
+                success: function (response) {
+                    const historyDiv = document.getElementById('history');
+                    historyDiv.innerHTML = '<h3>Calculation History</h3>';
+                    if (response.length > 0) {
+                        const historyList = document.createElement('ul');
+                        response.forEach(item => {
+                            const listItem = document.createElement('li');
+                            listItem.textContent = item;
+                            historyList.appendChild(listItem);
+                        });
+                        historyDiv.appendChild(historyList);
+                    } else {
+                        historyDiv.innerHTML += '<p>No calculations in history.</p>';
+                    }
+                },
+                error: function () {
+                    document.getElementById('history').innerHTML = 'Error occurred while fetching history';
+                }
+            });
+        }
+
+        function clearHistory() {
+            $.ajax({
+                url: '/Calculator/ClearHistory',
+                type: 'POST',
+                success: function (response) {
+                    if (response.success) {
+                        document.getElementById('history').innerHTML = '';
+                    } else {
+                        document.getElementById('history').innerHTML = 'Error occurred while clearing history';
+                    }
+                },
+                error: function () {
+                    document.getElementById('history').innerHTML = 'Error occurred while clearing history';
                 }
             });
         }

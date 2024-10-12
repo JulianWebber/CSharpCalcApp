@@ -1,37 +1,63 @@
 using System;
+using System.Collections.Generic;
 
 namespace CalculatorWebApp.Models
 {
     public class Calculator
     {
         private double memoryValue = 0;
+        private List<string> history = new List<string>();
 
         public double Calculate(double num1, double num2, string operation)
         {
+            double result;
             switch (operation)
             {
                 case "+":
-                    return Add(num1, num2);
+                    result = Add(num1, num2);
+                    break;
                 case "-":
-                    return Subtract(num1, num2);
+                    result = Subtract(num1, num2);
+                    break;
                 case "*":
-                    return Multiply(num1, num2);
+                    result = Multiply(num1, num2);
+                    break;
                 case "/":
-                    return Divide(num1, num2);
+                    result = Divide(num1, num2);
+                    break;
                 case "sqrt":
-                    return SquareRoot(num1);
+                    result = SquareRoot(num1);
+                    break;
                 case "^":
-                    return Power(num1, num2);
+                    result = Power(num1, num2);
+                    break;
                 case "M+":
-                    return MemoryAdd(num1);
+                    result = MemoryAdd(num1);
+                    break;
                 case "MR":
-                    return MemoryRecall();
+                    result = MemoryRecall();
+                    break;
                 case "MC":
                     MemoryClear();
-                    return 0;
+                    result = 0;
+                    break;
                 default:
                     throw new ArgumentException("Invalid operation. Please use +, -, *, /, sqrt, ^, M+, MR, or MC.");
             }
+
+            history.Add($"{num1} {operation} {(operation == "sqrt" || operation == "M+" || operation == "MR" || operation == "MC" ? "" : num2.ToString())} = {result}");
+
+            return result;
+        }
+
+        public List<string> GetHistory()
+        {
+            return history;
+        }
+
+        public void ClearHistory()
+        {
+            history.Clear();
         }
 
         private double Add(double num1, double num2)
