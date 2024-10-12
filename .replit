@@ -1,0 +1,26 @@
+modules = ["dotnet-7.0"]
+[workflows]
+runButton = "Project"
+
+[[workflows.workflow]]
+name = "Project"
+mode = "parallel"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Run Calculator"
+
+[[workflows.workflow]]
+name = "Run Calculator"
+author = "agent"
+
+[workflows.workflow.metadata]
+agentRequireRestartOnSave = false
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "cd CSharpCalculatorApp && dotnet run"
+
+[deployment]
+run = ["sh", "-c", "cd CSharpCalculatorApp && dotnet run"]

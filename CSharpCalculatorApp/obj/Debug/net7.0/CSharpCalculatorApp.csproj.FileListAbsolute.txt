@@ -1,0 +1,14 @@
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/bin/Debug/net7.0/CSharpCalculatorApp
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/bin/Debug/net7.0/CSharpCalculatorApp.deps.json
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/bin/Debug/net7.0/CSharpCalculatorApp.runtimeconfig.json
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/bin/Debug/net7.0/CSharpCalculatorApp.dll
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/bin/Debug/net7.0/CSharpCalculatorApp.pdb
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.GeneratedMSBuildEditorConfig.editorconfig
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.AssemblyInfoInputs.cache
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.AssemblyInfo.cs
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.csproj.CoreCompileInputs.cache
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.dll
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/refint/CSharpCalculatorApp.dll
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.pdb
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/CSharpCalculatorApp.genruntimeconfig.cache
+/home/runner/CSharpCalculatorApp/CSharpCalculatorApp/obj/Debug/net7.0/ref/CSharpCalculatorApp.dll
